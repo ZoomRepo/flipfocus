@@ -28,10 +28,9 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsPending(true);
-    const serviceID: string = process.env.SERVICE_ID as string; 
-    const templateID: string =  process.env.TEMPLATE_ID as string;
-    const userID: string = process.env.USER_ID as string;
-    console.log(serviceID, templateID, userID, formData)
+    const serviceID: string = 'Marketing Motekso'; 
+    const templateID: string =  'template_663urhm';
+    const userID: string = 'aINz7CYrwogywtd_X';
     try {
       const response = await emailjs.send(
         serviceID, 
