@@ -12,7 +12,7 @@ import { SocialIcon } from "./social-icon"
 import { WaitlistForm } from "./waitlist-form"
 
 export function WaitlistSignup() {
-  const [success, setSuccess] = useState<boolean | undefined>(undefined)
+  const [success, setSuccess] = useState(false)
   useEffect(() => {
   }, [])
 
