@@ -12,14 +12,12 @@ import { SocialIcon } from "./social-icon"
 import { WaitlistForm } from "./waitlist-form"
 
 export function WaitlistSignup() {
-  const [waitlistCount, setWaitlistCount] = useState(0)
-
+  const [success, setSuccess] = useState<boolean | undefined>(undefined)
   useEffect(() => {
-    getWaitlistCount().then((count) => setWaitlistCount(count + 100))
   }, [])
 
-  const handleSuccess = (count: number) => {
-    setWaitlistCount(count + 100)
+  const handleSuccess = (b: boolean) => {
+    setSuccess(b)
   }
 
   return (
@@ -38,18 +36,9 @@ export function WaitlistSignup() {
           </p>
         </div>
         <div className="w-full" style={{ marginTop: "100px" }}>
-          <WaitlistForm onSuccess={handleSuccess} />
+          {success ? <h4 className="text-lg text-green-300 mt-4">🎉 You are on the list! We'll be in touch soon! 🚀</h4> : 
+          <WaitlistForm onSuccess={handleSuccess} /> }
         </div>
-        {/* <div>
-          <div className="flex items-center justify-center mt-8">
-            <div className="flex -space-x-2 mr-4">
-              <Avatar initials="JD" index={0} />
-              <Avatar initials="AS" index={1} />
-              <Avatar initials="MK" index={2} />
-            </div>
-            <p className="text-white font-semibold">{waitlistCount}+ people on the waitlist</p>
-          </div>
-        </div> */}
       </div>
       <div className="pt-8 flex justify-center space-x-6">
         <SocialIcon
