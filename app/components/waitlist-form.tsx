@@ -6,9 +6,6 @@ import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
 import { useToast } from "@/components/ui/use-toast"
 import emailjs from 'emailjs-com';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 interface WaitlistFormProps {
   onSuccess: (b: boolean) => void;
@@ -28,7 +25,7 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
     emailjs.sendForm(
       process.env.SERVICE_ID as string, 
       process.env.TEMPLATE_ID as string, 
-      e.currentTarget,
+      email,
       process.env.USER_ID as string
     ).then((result) => {
           setSuccess(true)
