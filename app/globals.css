@@ -92,3 +92,40 @@ body {
     @apply bg-background text-foreground;
   }
 }
+@media (max-width: 400px) {
+  body {}  
+  .p-8 {
+    padding: 1rem;
+  }
+  #main-content {
+    padding-left: 10px !important;
+  }
+}
+@media (max-height: 400px) {
+  main {width: 100vw;}  
+  .w-full {
+    width:auto !important;
+  }
+  #main-content {
+    padding-left: 10px !important;
+  }
+  #main-title {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.mb-8 {
+  margin-bottom: 5px;
+}
+#main-container {
+  background: #000;
+}
+#main-form {
+  margin-top: 50px;
+}
+#main-description {        
+  width: 30vw;
+  margin-top: 10px;;
+  font-size: 01rem;
+}
+}
