@@ -12,32 +12,43 @@ interface WaitlistFormProps {
 }
 
 export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
-  const [email, setEmail] = useState('')
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+  
   const [success, setSuccess] = useState<boolean | undefined>(undefined)
   const [message, setMessage] = useState('')
   const [isPending, setIsPending] = useState(false)
   const { toast } = useToast()
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsPending(true);
-  
-    emailjs.sendForm(
-      process.env.SERVICE_ID as string, 
-      process.env.TEMPLATE_ID as string, 
-      email,
-      process.env.USER_ID as string
-    ).then((result) => {
-          setSuccess(true)
-          setMessage(result.text)
-          setIsPending(false)
-          onSuccess(true)
-      }, (error) => {
+    const serviceID: string = process.env.SERVICE_ID as string; 
+    const templateID: string =  process.env.TEMPLATE_ID as string;
+    const userID: string = process.env.USER_ID as string;
+    console.log(serviceID, templateID, userID, formData)
+    try {
+      const response = await emailjs.send(
+        serviceID, 
+        templateID, 
+        formData,
+        userID
+      )
+      setSuccess(true)
+      setMessage(response.text)
+      setIsPending(false)
+      onSuccess(true)
+    }catch (error) {
           setSuccess(false)
-          setMessage(error.text)
+          setMessage(error as string)
           setIsPending(false)
           onSuccess(false)
-      });
+      }
   };
 
   useEffect(() => {
@@ -47,7 +58,7 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
         description: message,
         duration: 5000,
       })
-      setEmail('')
+      setFormData({ email: ''})
     } else if (success === false) {
       toast({
         title: "Error",
@@ -60,7 +71,7 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
 
   return (
     <form onSubmit={sendEmail} className="w-full space-y-4 mb-8">
-      <div className="flex overflow-hidden rounded-xl bg-white/5 p-1 ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-blue-500">
+      <div className="flex overflow-hidden rounded-xl bg-white/5 p-1 ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-blue-500">a 
         <Input
           id="email"
           name="email"
@@ -68,8 +79,8 @@ export function WaitlistForm({ onSuccess }: WaitlistFormProps) {
           placeholder="Enter your email"
           required
           disabled={success} 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           aria-describedby="email-error"
           className="w-full border-0 bg-transparent text-white placeholder:text-gray-400 focus:ring-0 focus:border-transparent focus-visible:border-transparent focus:outline-none active:ring-0 active:outline-none focus-visible:ring-0 focus-visible:outline-none active:border-transparent focus-visible:ring-offset-0"
         />
