@@ -42,7 +42,7 @@ export function WaitlistSignup() {
           </div>
         </div>
       </div>
-      <div className="pt-8 flex justify-center space-x-6" style={{position: 'absolute', bottom: '25%', left: '51%'}}>
+      {/* <div className="pt-8 flex justify-center space-x-6" style={{position: 'absolute', bottom: '25%', left: '51%'}}>
         <SocialIcon
           href="https://x.com/motekso"
           target="_blank"
@@ -50,7 +50,7 @@ export function WaitlistSignup() {
           aria-label="X (formerly Twitter)"
           icon={<XIcon className="w-6 h-6" />}
         />
-        {/* <SocialIcon
+        <SocialIcon
           href="https://instagram.com"
           target="_blank"
           rel="noopener noreferrer"
@@ -77,8 +77,8 @@ export function WaitlistSignup() {
           rel="noopener noreferrer"
           aria-label="LinkedIn"
           icon={<LinkedInIcon className="w-6 h-6" />}
-        /> */}
-      </div>
+        /> 
+      </div> */}
     </div>
   )
 }
